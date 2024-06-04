@@ -4,7 +4,7 @@
 
 ## [1. CRM - Customer Relationship Management] ##
 
-## [2. CRM] ##
+<!-- ## [2. CRM] ##
 
 ## [3. Cozastore] ##
 
@@ -20,4 +20,4 @@
 
 ## [9. Book Store Management] ##
 
-## [10. Chat App] ##
+## [10. Chat App] ## -->
