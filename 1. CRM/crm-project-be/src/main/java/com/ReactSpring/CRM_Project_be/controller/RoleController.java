@@ -6,9 +6,7 @@ import com.ReactSpring.CRM_Project_be.service.RolesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +26,16 @@ public class RoleController {
             RoleDTO roleDTO = new RoleDTO();
             roleDTO.setRole_id(data.getId());
             roleDTO.setRole_name(data.getRole_name());
+            roleDTO.setDescription(data.getDescription());
 
             listRoleDTO.add(roleDTO);
         }
         return new ResponseEntity<>(listRoleDTO, HttpStatus.OK);
+    }
+
+    @PostMapping("")
+    public ResponseEntity<?> saveRole(@RequestBody Roles roles){
+        Roles saveRole = rolesService.createRole(roles);
+        return new ResponseEntity<>(saveRole, HttpStatus.CREATED);
     }
 }

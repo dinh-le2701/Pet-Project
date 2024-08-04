@@ -13,6 +13,7 @@ import { Error } from './Components/Pages/Error/Error'
 import { Login } from './Components/Pages/Login/Login'
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Header } from './Components/Header/Header';
 function App() {
   return (
     <div className="App">
@@ -21,6 +22,7 @@ function App() {
           <SideBar />
         </Col>
         <Col className='p-0'>
+          <Header />
           <BrowserRouter>
             <Routes>
               <Route path='/login' element={<Login/>}/>

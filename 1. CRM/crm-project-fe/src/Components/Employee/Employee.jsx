@@ -4,7 +4,6 @@ import Button from 'react-bootstrap/Button'
 import Table from 'react-bootstrap/Table'
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
-import Container from 'react-bootstrap/Container'
 
 export const Employee = () => {
   const [show, setShow] = useState(false);
@@ -19,11 +18,10 @@ export const Employee = () => {
       </div>
 
       <div className="table-content bg-white m-3 p-3">
-        <Container>
           <div className="func-table d-flex justify-content-between align-items-center py-3">
             <div className="select-group">
               Hiển thị
-              <select name="" id="">
+              <select name="" id=""  className='mx-2'>
                 <option value="">10</option>
                 <option value="">20</option>
                 <option value="">30</option>
@@ -57,7 +55,6 @@ export const Employee = () => {
               </tr>
             </tbody>
           </Table>
-        </Container>
       </div>
 
 

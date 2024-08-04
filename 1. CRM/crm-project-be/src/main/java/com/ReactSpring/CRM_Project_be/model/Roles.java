@@ -22,6 +22,9 @@ public class Roles {
     @Column(name = "role_name")
     private String role_name;
 
+    @Column(name = "description")
+    private String description;
+
     @OneToMany(mappedBy = "roles")
     private List<Employees> employees;
 }
