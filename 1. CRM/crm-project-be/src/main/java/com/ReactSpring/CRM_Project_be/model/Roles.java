@@ -6,20 +6,22 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "Roles")
-public class Role {
+public class Roles {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "id")
+    private int id;
 
     @Column(name = "role_name")
     private String role_name;
 
-    @ManyToMany(mappedBy = "Roles")
-    private Set<Employee> employees = new HashSet<>();
+    @OneToMany(mappedBy = "roles")
+    private List<Employees> employees;
 }

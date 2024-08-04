@@ -5,15 +5,20 @@ create table Employees(
 	id int primary key auto_increment not null,
     username varchar(255) not null,
     email varchar(255) not null,
-    password varchar(255) not null,
+    password varchar(255) not null, 
     phone int not null,
-    create_at timestamp default current_timestamp
+    create_at timestamp default current_timestamp,
+    role_id int
 );
 
 create table Roles(
 	id int auto_increment primary key,
-    role_name varchar(255) not null unique
+    role_name varchar(255) not null unique,
+    description varchar(255)
 );
+
+ALTER TABLE Employees ADD CONSTRAINT FK_id_Roles_Employees 
+FOREIGN KEY(role_id) REFERENCES Roles(id);
 
 create table Employee_roles(
 	employee_id int,
@@ -55,10 +60,10 @@ INSERT INTO employees (username, email, password, phone) VALUES
 ('Định', 'dinh123456@example.com', "123456", 0123456789);
 
 -- Bảng roles
-INSERT INTO roles (role_name) VALUES
-('Admin'),
-('Manager'),
-('Developer');
+INSERT INTO roles (role_name, description) VALUES
+('Admin', "Quản trị hệ thống"),
+('Manager', "Quản lý dự án"),
+('Developer', "Phát triển dự án");
 
 -- Bảng employee_roles
 INSERT INTO employee_roles (employee_id, role_id) VALUES
