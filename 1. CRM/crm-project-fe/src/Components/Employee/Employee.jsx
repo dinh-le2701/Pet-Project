@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Header } from '../Header/Header'
 import Button from 'react-bootstrap/Button'
 import Table from 'react-bootstrap/Table'
@@ -9,6 +9,15 @@ export const Employee = () => {
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false)
+
+  const [employees, setEmployees] = useState([])
+  useEffect(() => {
+    fetch("http://localhost:8989/api/v1/employee")
+      .then(res => res.json())
+      .then(data => setEmployees(data))
+      .then(console.log(employees))
+      .catch(err => console.error("Error fetching products:", err))
+  }, [])
 
   return (
     <div className='employee'>
@@ -36,23 +45,29 @@ export const Employee = () => {
               <tr>
                 <th>STT</th>
                 <th>Họ Tên</th>
-                <th>Tài Khoản</th>
                 <th>Email</th>
+                <th>Mật khẩu</th>
                 <th>Số Điện Thoại</th>
                 <th>Quyền</th>
+                <th>Ngày Tạo</th>
+                <th>Ngày Cập Nhật</th>
                 <th>Hành Động</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-              </tr>
+              {employees.map((employees, id) => {
+                return <tr key={id}>
+                          <td>{employees.id}</td>
+                          <td>{employees.username}</td>
+                          <td>{employees.email}</td>
+                          <td>{employees.password}</td>
+                          <td>{employees.phone}</td>
+                          <td>{employees.role.role_name}</td>
+                          <td>{employees.createAt}</td>
+                          <td>{employees.update_at}</td>
+                          <td></td>
+                        </tr>
+              })}
             </tbody>
           </Table>
       </div>

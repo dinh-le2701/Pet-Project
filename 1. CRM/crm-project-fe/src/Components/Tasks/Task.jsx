@@ -1,15 +1,24 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Header } from '../Header/Header'
 import Button from 'react-bootstrap/Button'
 import Table from 'react-bootstrap/Table'
 import Form from 'react-bootstrap/Form'
 import Modal from 'react-bootstrap/Modal';
 import Container from 'react-bootstrap/esm/Container'
+import AxiosInstance from '../../Config/AxiosInstance'
 
 export const Task = () => {
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false)
+
+  const [tasks, setTasks] = useState([])
+  useEffect(() => {
+    AxiosInstance.get("/task")
+      .then(res => setTasks(res.data))
+      .then(console.log(tasks))
+      .catch(err => console.error("Error fetching products:", err))
+  }, [])
 
   return (
     <div className='task'>
@@ -36,27 +45,33 @@ export const Task = () => {
           <Table hover striped bordered className='w-100'>
             <thead>
               <tr>
-                <th>STT</th>
+                <th>ID</th>
                 <th>Tên Công Việc</th>
                 <th>Tên Dự Án</th>
                 <th>Người Thực Hiện</th>
                 <th>Ngày Bắt Đầu</th>
                 <th>Ngày Kết Thúc</th>
+                <th>Ngày Cập Nhật</th>
                 <th>Trạng Thái</th>
                 <th>Hành Động</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-              </tr>
+              {tasks.map((tasks, id) => {
+                return <tr key={id}>
+                  <td>{tasks.id}</td>
+                  <td>{tasks.task_name}</td>
+                  <td>{tasks.project_name}</td>
+                  <td>{tasks.employee}</td>
+                  <td>{tasks.start_date}</td>
+                  <td>{tasks.end_date}</td>
+                  <td>{tasks.update_at}</td>
+                  <td>{tasks.status}</td>
+                  <td>
+                    
+                  </td>
+                </tr>
+              })}
             </tbody>
           </Table>
         </Container>
@@ -79,7 +94,7 @@ export const Task = () => {
                 <option value="3">Chưa thực hiện</option>
               </Form.Select>
             </Form.Group>
-            
+
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Tên Công Việc</Form.Label>
               <Form.Control

@@ -1,8 +1,8 @@
 package com.ReactSpring.CRM_Project_be.controller;
 
 import com.ReactSpring.CRM_Project_be.dto.RoleDTO;
-import com.ReactSpring.CRM_Project_be.model.Roles;
-import com.ReactSpring.CRM_Project_be.service.RolesService;
+import com.ReactSpring.CRM_Project_be.model.Role;
+import com.ReactSpring.CRM_Project_be.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,27 +15,24 @@ import java.util.List;
 @RequestMapping("/api/v1/role")
 public class RoleController {
     @Autowired
-    private RolesService rolesService;
+    private RoleService roleService;
 
     @GetMapping("")
-    public ResponseEntity<?> getAllRoles(){
-        List<Roles> roles = rolesService.getAllRole();
-        List<RoleDTO> listRoleDTO = new ArrayList<>();
-
-        for(Roles data : roles){
-            RoleDTO roleDTO = new RoleDTO();
-            roleDTO.setRole_id(data.getId());
-            roleDTO.setRole_name(data.getRole_name());
-            roleDTO.setDescription(data.getDescription());
-
-            listRoleDTO.add(roleDTO);
-        }
-        return new ResponseEntity<>(listRoleDTO, HttpStatus.OK);
+    public ResponseEntity<List<Role>> getAllRoles(){
+        List<Role> role = roleService.getAllRole();
+//        List<RoleDTO> listRoleDTO = new ArrayList<>();
+//        for(Role data : role){
+//            RoleDTO roleDTO = new RoleDTO();
+//            roleDTO.setRole_name(data.getRole_name());
+//            roleDTO.setDescription(data.getDescription());
+//            listRoleDTO.add(roleDTO);
+//        }
+        return new ResponseEntity<>(role, HttpStatus.OK);
     }
-
-    @PostMapping("")
-    public ResponseEntity<?> saveRole(@RequestBody Roles roles){
-        Roles saveRole = rolesService.createRole(roles);
-        return new ResponseEntity<>(saveRole, HttpStatus.CREATED);
-    }
+//
+//    @PostMapping("")
+//    public ResponseEntity<?> saveRole(@RequestBody Role roles){
+//        Role saveRole = roleService.createRole(roles);
+//        return new ResponseEntity<>(saveRole, HttpStatus.CREATED);
+//    }
 }

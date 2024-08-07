@@ -1,6 +1,6 @@
 import React from 'react'
 import "../Header/Header.css"
-import { Dropdown } from 'react-bootstrap';
+import { Dropdown, Image } from 'react-bootstrap';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
@@ -22,19 +22,20 @@ export const Header = () => {
           id="dropdown-basic"
           className="d-flex align-items-center "
         >
-          <img
+          <Image width={"50px"} height={"50px"} src='https://minhducpc.vn/uploads/images/hinh-cute01.png' roundedCircle/>
+          {/* <img
             src="https://minhducpc.vn/uploads/images/hinh-cute01.png"
             alt="User"
             className="header-img"
-          />
-          <h4 className="mx-4">Dinh Le</h4>
+          /> */}
+          <h6 className="mx-3">Dinh Le</h6>
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
-          <Dropdown.Item href="profile.html">Thông tin cá nhân</Dropdown.Item>
+          <Dropdown.Item href="profile">Thông tin cá nhân</Dropdown.Item>
           <Dropdown.Item href="#">Thống kê công việc</Dropdown.Item>
           <Dropdown.Divider />
-          <Dropdown.Item href="#">Đăng xuất</Dropdown.Item>
+          <Dropdown.Item href="/logout">Đăng xuất</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
     </div>

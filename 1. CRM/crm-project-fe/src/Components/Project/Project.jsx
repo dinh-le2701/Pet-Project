@@ -1,14 +1,22 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Header } from '../Header/Header'
 import Button from 'react-bootstrap/Button'
 import Table from 'react-bootstrap/Table'
 import Form from 'react-bootstrap/Form'
 import Modal from 'react-bootstrap/Modal';
+import AxiosInstance from '../../Config/AxiosInstance'
 
 export const Project = () => {
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false)
+
+  const [projects, setProjects] = useState([])
+  useEffect(() => {
+    AxiosInstance.get("/project")
+    .then(res => setProjects(res.data))
+      .catch(err => console.error("Error fetching products:", err))
+  }, [])
 
   return (
     <div className='project'>
@@ -42,13 +50,18 @@ export const Project = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-              </tr>
+              {projects.map((projects, id) => {
+                return <tr>
+                  <td>{projects.id}</td>
+                  <td>{projects.project_name}</td>
+                  <td>{projects.start_date}</td>
+                  <td>{projects.end_date}</td>
+                  <td>
+                    <Button variant='warning'>Edit</Button>
+                    <Button variant='danger'>Delete</Button>
+                  </td>
+                </tr>
+              })}
             </tbody>
           </Table>
       </div>

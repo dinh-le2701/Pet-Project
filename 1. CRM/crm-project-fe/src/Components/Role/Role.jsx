@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button'
 import Table from 'react-bootstrap/Table'
 import Form from 'react-bootstrap/Form'
 import Modal from 'react-bootstrap/Modal';
+import AxiosInstance from '../../Config/AxiosInstance';
 
 export const Role = () => {
   const [show, setShow] = useState(false);
@@ -12,9 +13,8 @@ export const Role = () => {
   // get api roles
   const [roles, setRoles] = useState([])
   useEffect(() => {
-    fetch("http://localhost:8989/api/v1/role")
-      .then(res => res.json())
-      .then(data => setRoles(data))
+    AxiosInstance.get("/role")
+      .then(res => setRoles(res.data))
       .catch(err => console.error("Error fetching products:", err))
   }, [])
 
@@ -69,17 +69,17 @@ const handleChange = (e) => {
         <Table hover striped bordered className='w-100'>
           <thead>
             <tr>
-              <th>STT</th>
+              <th>ID</th>
               <th>Tên Quyền</th>
               <th>Mô Tả</th>
             </tr>
           </thead>
           <tbody>
             {roles.map((roles, id) => {
-              return <tr key={id}>
-                <th>{roles.role_id}</th>
-                <th>{roles.role_name}</th>
-                <th>{roles.description}</th>
+              return <tr key={id} className='' >
+                <td>{roles.id}</td>
+                <td>{roles.role_name}</td>
+                <td>{roles.description}</td>
               </tr>
             })}
 

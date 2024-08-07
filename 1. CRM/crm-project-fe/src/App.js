@@ -14,6 +14,7 @@ import { Login } from './Components/Pages/Login/Login'
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Header } from './Components/Header/Header';
+import { Profile } from './Components/Pages/Profile/Profile';
 function App() {
   return (
     <div className="App">
@@ -25,7 +26,6 @@ function App() {
           <Header />
           <BrowserRouter>
             <Routes>
-              <Route path='/login' element={<Login/>}/>
               <Route path='/' element={<Dashboard/>}/>
               <Route path='/employee' element={<Employee/>}/>
               <Route path='/role' element={<Role/>}/>
@@ -33,6 +33,7 @@ function App() {
               <Route path='/task' element={<Task/>}/>
               <Route path='/blank' element={<Blank/>}/>
               <Route path='/error' element={<Error/>}/>
+              <Route path='/profile' element={<Profile/>}/>
             </Routes>
           </BrowserRouter>
         </Col>

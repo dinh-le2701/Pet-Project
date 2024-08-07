@@ -1,5 +1,7 @@
 package com.ReactSpring.CRM_Project_be.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,8 +14,8 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "Roles")
-public class Roles {
+@Entity(name = "Role")
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -25,6 +27,12 @@ public class Roles {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "roles")
-    private List<Employees> employees;
+    @ManyToMany
+    @JoinTable(
+            name = "Employee_Role",
+            joinColumns = @JoinColumn(name = "role_id"),
+            inverseJoinColumns = @JoinColumn(name = "employee_id")
+    )
+    @JsonBackReference
+    private Set<Employee> employees = new HashSet<>();
 }
