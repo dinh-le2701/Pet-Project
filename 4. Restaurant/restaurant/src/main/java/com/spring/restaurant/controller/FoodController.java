@@ -21,34 +21,58 @@ public class FoodController {
 
     @GetMapping("")
     public ResponseEntity<List<Food>> getFoods(){
-        List<Food> foods = foodService.getFoods();
-        log.info("Get all food completed!");
-        return new ResponseEntity<>(foods, HttpStatus.FOUND);
+        try {
+            List<Food> foods = foodService.getFoods();
+            log.info("Get all food completed!");
+            return new ResponseEntity<>(foods, HttpStatus.FOUND);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Food> getFoodById(@PathVariable("id") Long id){
-        Food food = foodService.getFoodById(id);
-        log.info(food + "has found!");
-        return new ResponseEntity<>(food, HttpStatus.FOUND);
+        try {
+            Food food = foodService.getFoodById(id);
+            log.info(food + "has found!");
+            return new ResponseEntity<>(food, HttpStatus.FOUND);
+        } catch (Exception e){
+            log.warn("Not found food has id: " + id + e);
+            throw new RuntimeException(e);
+        }
     }
 
     @PostMapping("")
     public ResponseEntity<Food> saveFood(@RequestBody Food food){
-        log.info(food + "is saved!");
-        foodService.saveFood(food);
-        return new ResponseEntity<>(food, HttpStatus.CREATED);
+        try {
+            log.info(food + "is saved!");
+            foodService.saveFood(food);
+            return new ResponseEntity<>(food, HttpStatus.CREATED);
+        } catch (Exception e){
+            log.warn("Saved food has error: " + e);
+            throw new RuntimeException(e);
+        }
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Food> updateFood(@PathVariable("id") Long id, Food updateFood){
-        Food food = foodService.getFoodById(id);
-        log.info(food + "has update!");
-        return new ResponseEntity<>(food, HttpStatus.FOUND);
+        try {
+            Food food = foodService.getFoodById(id);
+            log.info(food + "has update!");
+            return new ResponseEntity<>(food, HttpStatus.FOUND);
+        } catch (Exception e){
+            log.warn("Not found food has id: " + id + e);
+            throw new RuntimeException(e);
+        }
     }
 
     @DeleteMapping("/{id}")
     public void deleteFood(@PathVariable("id") Long id){
-        log.info("Food deleted with id: " + id);
+        try {
+            foodService.deleteFood(id);
+            log.info("Food deleted with id: " + id);
+        } catch (Exception e){
+            throw new RuntimeException(e);
+        }
     }
 }
