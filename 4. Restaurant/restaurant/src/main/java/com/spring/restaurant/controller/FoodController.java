@@ -55,9 +55,9 @@ public class FoodController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Food> updateFood(@PathVariable("id") Long id, Food updateFood){
+    public ResponseEntity<Food> updateFood(@PathVariable("id") Long id,@RequestBody Food updateFood){
         try {
-            Food food = foodService.getFoodById(id);
+            Food food = foodService.updateFood(id, updateFood);
             log.info(food + "has update!");
             return new ResponseEntity<>(food, HttpStatus.FOUND);
         } catch (Exception e){
